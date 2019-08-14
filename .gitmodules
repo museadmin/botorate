@@ -1,0 +1,12 @@
+[submodule "botocore"]
+	path = botocore
+	url = git@github.com:museadmin/botocore.git
+	branch = develop
+[submodule "boto3"]
+	path = boto3
+	url = git@github.com:museadmin/boto3.git
+	branch = develop
+[submodule "ScoutSuite"]
+	path = ScoutSuite
+	url = git@github.com:museadmin/ScoutSuite.git
+	branch = develop
