@@ -1,17 +1,23 @@
 ROOT_DIR=$(shell pwd)
 # Tasks
-install:
-	cd boto3 && python setup.py install
+env:
 	cd $(ROOT_DIR)
-	cd botocore && python setup.py install
-	cd $(ROOT_DIR)
-	cd ScoutSuite && python setup.py install
+	pip install --upgrade pip
+	cd ScoutSuite && pip install -r requirements.txt
+#	cd $(ROOT_DIR)
+#	cd botocore && pip install -r requirements.txt
+#	cd $(ROOT_DIR)
+#	cd ScoutSuite && pip install -r requirements.txt
 
-install_boto:
+init: env install
+
+install:
+	pip uninstall boto3 -y
+	pip uninstall botocore -y
+	cd $(ROOT_DIR)
 	cd boto3 && python setup.py install
 	cd $(ROOT_DIR)
 	cd botocore && python setup.py install
-	cd $(ROOT_DIR)
 
 update_root:
 	git submodule foreach git push origin develop
@@ -21,8 +27,10 @@ tasks:
 	@echo "	---------------------------------------"
 	@echo "	Manage API rate manager dependent projects:"
 	@echo "	---------------------------------------"
-	@echo "	install: Run a local install of all dependant projects into the virtual environment."
-	@echo "	install_boto: Just install the boto components."
+	@echo "	init: Initialise the development environment:"
+	@echo "		Update pip and install ScoutSuite dependencies."
+	@echo "		Local installation of boto3 and botocore."
+	@echo "	install: Install the boto components locally."
 	@echo "	tasks: Display this list of tasks."
 	@echo "	test: Run the unit tests. Expects valid AWS creds in your environment variables."
 	@echo "	update_root:	Update the snapshot in the root project (botorate)."
