@@ -4,27 +4,29 @@ ROOT_DIR=$(shell pwd)
 init: env install
 
 env:
-	cd $(ROOT_DIR)
-	git submodule update --init --recursive --remote
-	pip install --upgrade pip
-	cd ScoutSuite
-	git checkout develop
-	pip install -r ./requirements.txt
-	cd $(ROOT_DIR)
-	cd boto3
-	git checkout develop
-	cd $(ROOT_DIR)
-	cd botocore
-	git checkout develop
-	cd $(ROOT_DIR)
+	cd $(ROOT_DIR);\
+	git submodule update --init --recursive --remote;\
+	pip install --upgrade pip;\
+	cd ScoutSuite;\
+	git checkout develop;\
+	pip install -r ./requirements.txt;\
+	cd $(ROOT_DIR);\
+	cd boto3;\
+	git checkout develop;\
+	cd $(ROOT_DIR);\
+	cd botocore;\
+	git checkout develop;\
+	cd $(ROOT_DIR);\
 
 install:
-	pip uninstall boto3 -y
-	pip uninstall botocore -y
-	cd $(ROOT_DIR)
-	cd boto3 && python setup.py install
-	cd $(ROOT_DIR)
-	cd botocore && python setup.py install
+	pip uninstall boto3 -y;\
+	pip uninstall botocore -y;\
+	cd $(ROOT_DIR);\
+	cd boto3;\
+	python setup.py install;\
+	cd $(ROOT_DIR);\
+	cd botocore;\
+	python setup.py install;\
 
 update_root:
 	git submodule foreach git push origin develop
@@ -45,5 +47,5 @@ tasks:
 	@echo "	---------------------------------------"
 
 test:
-	python $(ROOT_DIR)/botocore/tests/unit/test_rate_mgr.py
-	python $(ROOT_DIR)/botocore/tests/unit/test_rate_mgr_integration.py
+	python $(ROOT_DIR)/botocore/tests/unit/test_rate_mgr.py;\
+	python $(ROOT_DIR)/botocore/tests/unit/test_rate_mgr_integration.py;\
