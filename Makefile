@@ -7,7 +7,16 @@ env:
 	cd $(ROOT_DIR)
 	git submodule update --init --recursive --remote
 	pip install --upgrade pip
-	cd ScoutSuite && pip install -r ./requirements.txt
+	cd ScoutSuite
+	git checkout develop
+	pip install -r ./requirements.txt
+	cd $(ROOT_DIR)
+	cd boto3
+	git checkout develop
+	cd $(ROOT_DIR)
+	cd botocore
+	git checkout develop
+	cd $(ROOT_DIR)
 
 install:
 	pip uninstall boto3 -y
