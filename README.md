@@ -126,19 +126,49 @@ make tasks
 
 #### Prerequisites
 
-* python3 -m venv venv
-* . venv/bin/activate
-
 When developing you need to run the code using locally installed 
 versions of the sub-projects. The supplied makefile supports installing 
 the boto components: boto3 and botocore and all of the dependencies for
 ScoutSuite.
 
-On first installation run `make init`
+On first installation run `make init` after creating a python3 virtual 
+environment.
+
+* Clone this project
+* cd botorate/
+* python3 -m venv venv
+* . venv/bin/activate
+* make init
+
+then export your current AWS session variables into your shell and run 
+`make test` to run the unit tests.
 
 Keep in mind that when developing you need to work in each repo, while 
 when you are debugging, you are stepping through the locally installed 
 packages instead.
+
+ScoutSuite in this project is hacked to apply the queue to ec2 in: 
+
+ScoutSuite/ScoutSuite/providers/aws/facade/utils.py
+
+```
+        try:
+            if service.lower() == 'ec2':  # or service.lower() == 'iam':
+                return AWSFacadeUtils._clients.setdefault(
+                    (service, region),
+                    session.client(service, region_name=region, api_rate=5) if region else session.client(service, api_rate=5))
+            else:
+                return AWSFacadeUtils._clients.setdefault(
+                    (service, region),
+                    session.client(service, region_name=region) if region else session.client(service))
+        except Exception as e:
+            print_exception('Failed to create client for the {} service: {}'.format(service, e))
+            return None
+```
+
+To see this in use you will need to run ScoutSuite in single thread mode
+ e.g. `--max-workers 1`
+
 
 ### Pycharm Configuration
 
