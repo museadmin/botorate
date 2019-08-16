@@ -5,8 +5,6 @@ init: env install
 
 env:
 	cd $(ROOT_DIR)
-	python3 -m venv venv
-	. venv/bin/activate
 	git submodule update --init --recursive --remote
 	pip install --upgrade pip
 	cd ScoutSuite && pip install -r ./requirements.txt
