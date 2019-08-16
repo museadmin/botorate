@@ -124,6 +124,11 @@ make tasks
 
 ### Local Installation
 
+#### Prerequisites
+
+* python3 -m venv venv
+* . venv/bin/activate
+
 When developing you need to run the code using locally installed 
 versions of the sub-projects. The supplied makefile supports installing 
 the boto components: boto3 and botocore and all of the dependencies for

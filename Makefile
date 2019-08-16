@@ -1,15 +1,15 @@
 ROOT_DIR=$(shell pwd)
 # Tasks
-env:
-	cd $(ROOT_DIR)
-	pip install --upgrade pip
-	cd ScoutSuite && pip install -r requirements.txt
-#	cd $(ROOT_DIR)
-#	cd botocore && pip install -r requirements.txt
-#	cd $(ROOT_DIR)
-#	cd ScoutSuite && pip install -r requirements.txt
 
 init: env install
+
+env:
+	cd $(ROOT_DIR)
+	python3 -m venv venv
+	. venv/bin/activate
+	git submodule update --init --recursive --remote
+	pip install --upgrade pip
+	cd ScoutSuite && pip install -r ./requirements.txt
 
 install:
 	pip uninstall boto3 -y
