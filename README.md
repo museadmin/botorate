@@ -53,6 +53,25 @@ It occurred to me that if a mechanism could be created within boto3
 itself to queue outbound API calls at a configurable rate, then this 
 might might prove to be a more general solution to the issue.
 
+![](resources/api_rate_overview.png)
+
+This project has the queue implemented in it and boto3 has been 
+refactored to pass through the value of the API rate in ms to botocore. 
+ScoutSuite is included and has simply been hardcoded to apply the queue 
+to ec2 clients.
+
+This has enabled me to conduct comparative runs between this solution 
+and using the Network Link Conditioner. With the former completing in 30
+ minutes and the latter in around 2 hours.
+ 
+The queue was only applied to ec2 clients because I was only 
+experiencing rate limiting on the scanning of the snapshots, around 15k 
++
+
+However, if the eventual PR is accepted by boto3 and botocore, 
+ScoutSuite could easily be modified to pass through a dictionary of 
+service clients and their desired rates.
+
 ### The future
 
 Also, if adopted, then going forward AWS might be persuaded to publish 
@@ -118,8 +137,8 @@ packages instead.
 
 ### Pycharm Configuration
 
-Pycharm needs to have te ScoutSuite directory marked as a "sources root"
- for local running and debugging.
+Pycharm needs to have the ScoutSuite directory marked as a 
+"sources root" for local running and debugging.
 
 #### Run config for unit tests
 
