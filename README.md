@@ -118,7 +118,7 @@ make tasks
 	tasks: Display this list of tasks.
 	test: Run the unit tests. Expects valid AWS creds in your environment variables.
 	update_root:	Update the snapshot in the root project (botorate).
-		Be sure to have committed each sub repo first...
+		    Be sure to have committed each sub repo first...
 	---------------------------------------
 ```
 
@@ -173,12 +173,11 @@ To see this in use you will need to run ScoutSuite in single thread mode
 ### Pycharm Configuration
 
 Pycharm needs to have the ScoutSuite directory marked as a 
-"sources root" for local running and debugging.
+"sources root" for local running and debugging. If you want to run the 
+unit tests within Pycharm, you will need to add your AWS credentials as 
+environment Vars in a run config like so:
 
 #### Run config for unit tests
 
 ![Run config for unit tests being run in Pycharm](resources/unit_test_run_config.png)
 
-#### Run config for ScoutSuite
-
-![Run config for ScoutSuite](resources/scout_run_config.png)
