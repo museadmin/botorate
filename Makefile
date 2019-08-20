@@ -1,9 +1,33 @@
 ROOT_DIR=$(shell pwd)
 # Tasks
 
-init: env install
+init37: src install
+init26: venv26 install26
+init27: venv27 install27
+init336: venv336 install336
+init374: venv374 install374
 
-env:
+venv26:
+	pyenv local 2.6.9;\
+	virtualenv -p /Users/bradley.atkins/.pyenv/versions/2.6.9/bin/python venv26;\
+	. venv26/bin/activate;\
+
+venv27:
+	pyenv local 2.7.16;\
+	virtualenv -p /Users/bradley.atkins/.pyenv/versions/2.7.16/bin/python venv27;\
+	. venv27/bin/activate;\
+
+venv336:
+	pyenv local 3.3.6;\
+	python -m venv venv336;\
+	. venv336/bin/activate;\
+
+venv374:
+	pyenv local 3.7.4;\
+	python -m venv venv374;\
+	. venv374/bin/activate;\
+
+src:
 	cd $(ROOT_DIR);\
 	git submodule update --init --recursive --remote;\
 	pip install --upgrade pip;\
@@ -18,7 +42,49 @@ env:
 	git checkout develop;\
 	cd $(ROOT_DIR);\
 
-install:
+install26:
+	. venv26/bin/activate;\
+	pip install statistics;\
+	pip install monotonic;\
+	pip uninstall boto3 -y;\
+	pip uninstall botocore -y;\
+	cd $(ROOT_DIR);\
+	cd boto3;\
+	python setup.py install;\
+	cd $(ROOT_DIR);\
+	cd botocore;\
+	python setup.py install;\
+
+install27:
+	. venv27/bin/activate;\
+	pip install statistics;\
+	pip install monotonic;\
+	pip uninstall boto3 -y;\
+	pip uninstall botocore -y;\
+	cd $(ROOT_DIR);\
+	cd boto3;\
+	python setup.py install;\
+	cd $(ROOT_DIR);\
+	cd botocore;\
+	python setup.py install;\
+
+install336:
+	. venv336/bin/activate;\
+	pip install statistics;\
+	pip install monotonic;\
+	pip uninstall boto3 -y;\
+	pip uninstall botocore -y;\
+	cd $(ROOT_DIR);\
+	cd boto3;\
+	python setup.py install;\
+	cd $(ROOT_DIR);\
+	cd botocore;\
+	python setup.py install;\
+
+install374:
+	. venv374/bin/activate;\
+	pip install statistics;\
+	pip install monotonic;\
 	pip uninstall boto3 -y;\
 	pip uninstall botocore -y;\
 	cd $(ROOT_DIR);\
@@ -37,6 +103,9 @@ tasks:
 	@echo "	Manage API rate manager dependent projects:"
 	@echo "	---------------------------------------"
 	@echo "	init: Initialise the development environment:"
+	@echo "		Update pip and install ScoutSuite dependencies."
+	@echo "		Local installation of boto3 and botocore."
+	@echo "	init26: Initialise the development environment with python 2.6.9:"
 	@echo "		Update pip and install ScoutSuite dependencies."
 	@echo "		Local installation of boto3 and botocore."
 	@echo "	install: Install the boto components locally."
